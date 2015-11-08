@@ -72,7 +72,7 @@ class HangpersonApp < Sinatra::Base
     if state == :win
       erb :win # You may change/remove this line
     else
-      erb :show
+      redirect '/show'
     end
   end
   
@@ -82,7 +82,7 @@ class HangpersonApp < Sinatra::Base
     if state == :lose
       erb :lose # You may change/remove this line
     else
-      erb :show
+      redirect '/show'
     end
   end
   
