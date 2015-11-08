@@ -10,11 +10,10 @@ class HangpersonGame
   attr_accessor :word
   attr_accessor :guesses
   attr_accessor :wrong_guesses
-  attr_reader :word_with_guesses
+  #attr_reader :word_with_guesses
 
   def initialize(word)
-    @word = word.downcase
-    @word_with_guesses = '-' * @word.length
+    @word = word
     @guesses = ''
     @wrong_guesses = ''
   end
@@ -33,22 +32,28 @@ class HangpersonGame
     # core logic
     if @word.include?(c)
       @guesses << c
-      (0..@word.length-1).each do |i|
-        if @word[i] == c
-          @word_with_guesses[i] = c
-        end
-      end
+     
     else 
       @wrong_guesses << c
     end
     true
   end
 
+  def word_with_guesses
+    word_g = '-' * @word.length
+    (0..@word.length-1).each do |i|
+      if @guesses.include?(@word[i]) || @guesses.upcase.include?(@word[i])
+        word_g[i] = @word[i]
+      end
+    end
+    word_g
+  end
+
   def check_win_or_lose
     if @wrong_guesses.length >= 7
       :lose
     else
-      @word == @word_with_guesses ? :win : :play
+      @word == self.word_with_guesses ? :win : :play
     end
   end
 
